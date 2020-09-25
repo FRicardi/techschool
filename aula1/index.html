@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolê de moto</title>
+    <style>
+        #moto {
+            position: relative;
+            left: 0;
+            width: 300px;
+            top: 150px;
+        }
+        .buttons {
+            margin-top:400px
+        }
+    </style>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var acelerar = document.getElementById("acelerar");
+            var frear = document.getElementById("frear");
+            var empinar = document.getElementById("empinar");
+            var endireitar = document.getElementById("endireitar");
+            var cortarGiro = document.getElementById("cortarGiro");
+
+            var corteDeGiro=document.getElementById('corte-giro');
+
+            var moto = document.getElementById("moto");
+
+            var intervalo;
+
+            acelerar.addEventListener("click", function () {
+                console.log(getComputedStyle(moto).left);
+                intervalo = setInterval(() => {
+                    var motoStyle = getComputedStyle(moto);
+                    if ((parseInt(motoStyle.width) + parseInt(motoStyle.left)) >= window.innerWidth) {
+                        clearInterval(intervalo);
+                    }
+                    moto.style.left = parseInt(getComputedStyle(moto).left)+2 + "px";
+                }, 10);
+            });
+
+            frear.addEventListener("click", function() {
+                clearInterval(intervalo);
+            })
+            
+            empinar.addEventListener("click", function () {
+                moto.style.transformOrigin = "bottom left";
+                moto.style.transform = "rotate(-45deg)";
+            })
+
+            endireitar.addEventListener("click", function () {
+                moto.style.transformOrigin = "bottom left";
+                moto.style.transform = "rotate(0deg)";
+            })
+            
+            cortarGiro.addEventListener("click", function () {
+                if(corteDeGiro.currentTime < 87){corteDeGiro.currentTime = 87;}
+                corteDeGiro.load();
+                corteDeGiro.play();
+            });
+        });        
+
+    </script>
+</head>
+<body>
+    <audio id="corte-giro" 
+        src="hornet.mp3" >
+        <p>Your browser does not support the audio element</p>
+    </audio>
+    <img id="moto" src="kawasaki.png" alt="">
+    <div class="buttons">
+        <button id="acelerar">Acelerar</button>
+        <button id="frear">Frear</button>
+        <button id="empinar">Empinar</button>
+        <button id="endireitar">Endireitar</button>
+        <button id="cortarGiro">Cortar giro</button>
+    </div>
+</body>
+</html>
