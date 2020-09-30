@@ -61,7 +61,9 @@
                 intervalo = setInterval(() => {
                     var motoStyle = getComputedStyle(moto);
                     if ((parseInt(motoStyle.width) + parseInt(motoStyle.left)) >= window.innerWidth) {
-                        clearInterval(intervalo);
+                        while(intervalo > 0) {
+                            clearInterval(intervalo);
+                        }
                     }
                     moto.style.left = parseInt(getComputedStyle(moto).left)+2 + "px";
                 }, 10);
