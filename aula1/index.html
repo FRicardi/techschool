@@ -31,66 +31,6 @@
             }
         ];
         document.addEventListener("DOMContentLoaded", function() {
-            var acelerar = document.getElementById("acelerar");
-            var frear = document.getElementById("frear");
-            var empinar = document.getElementById("empinar");
-            var endireitar = document.getElementById("endireitar");
-            var cortarGiro = document.getElementById("cortarGiro");
-            var seletorDeMotos = document.getElementById("motos");
-            var corteDeGiro=document.getElementById('corte-giro');
-
-            var moto = document.getElementById("moto");
-
-            var intervalo;
-            
-            while(seletorDeMotos.length > 0) {
-                seletorDeMotos.remove(0);
-            }
-
-
-            for(var i = 0; i < motos.length; i++) {
-                var option = document.createElement("option");
-                option.value = motos[i].value;
-                option.text = motos[i].name;
-                seletorDeMotos.add(option);
-            }
-
-
-            acelerar.addEventListener("click", function () {
-                console.log(getComputedStyle(moto).left);
-                intervalo = setInterval(() => {
-                    var motoStyle = getComputedStyle(moto);
-                    if ((parseInt(motoStyle.width) + parseInt(motoStyle.left)) >= window.innerWidth) {
-                        while(intervalo > 0) {
-                            clearInterval(intervalo);
-                        }
-                    }
-                    moto.style.left = parseInt(getComputedStyle(moto).left)+2 + "px";
-                }, 10);
-            });
-
-            frear.addEventListener("click", function() {
-                clearInterval(intervalo);
-            })
-            
-            seletorDeMotos.addEventListener("change", () => {
-                moto.src = "motos/" + seletorDeMotos.value;
-            })
-            empinar.addEventListener("click", function () {
-                moto.style.transformOrigin = "bottom left";
-                moto.style.transform = "rotate(-45deg)";
-            })
-
-            endireitar.addEventListener("click", function () {
-                moto.style.transformOrigin = "bottom left";
-                moto.style.transform = "rotate(0deg)";
-            })
-            
-            cortarGiro.addEventListener("click", function () {
-                if(corteDeGiro.currentTime < 87){corteDeGiro.currentTime = 87;}
-                corteDeGiro.load();
-                corteDeGiro.play();
-            });
         });        
 
     </script>
