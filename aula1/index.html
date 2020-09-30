@@ -16,19 +16,45 @@
         }
     </style>
     <script>
-
+        const motos = [
+            {
+                name: "CRF",
+                value: 'crf.png'
+            },
+            {
+                name: "Ninja",
+                value: 'kawasaki.png'
+            },
+            {
+                name: "Harley Davidson",
+                value: 'harley.png'
+            }
+        ];
         document.addEventListener("DOMContentLoaded", function() {
             var acelerar = document.getElementById("acelerar");
             var frear = document.getElementById("frear");
             var empinar = document.getElementById("empinar");
             var endireitar = document.getElementById("endireitar");
             var cortarGiro = document.getElementById("cortarGiro");
-
+            var seletorDeMotos = document.getElementById("motos");
             var corteDeGiro=document.getElementById('corte-giro');
 
             var moto = document.getElementById("moto");
 
             var intervalo;
+            
+            while(seletorDeMotos.length > 0) {
+                seletorDeMotos.remove(0);
+            }
+
+
+            for(var i = 0; i < motos.length; i++) {
+                var option = document.createElement("option");
+                option.value = motos[i].value;
+                option.text = motos[i].name;
+                seletorDeMotos.add(option);
+            }
+
 
             acelerar.addEventListener("click", function () {
                 console.log(getComputedStyle(moto).left);
@@ -45,6 +71,9 @@
                 clearInterval(intervalo);
             })
             
+            seletorDeMotos.addEventListener("change", () => {
+                moto.src = "motos/" + seletorDeMotos.value;
+            })
             empinar.addEventListener("click", function () {
                 moto.style.transformOrigin = "bottom left";
                 moto.style.transform = "rotate(-45deg)";
@@ -69,13 +98,16 @@
         src="hornet.mp3" >
         <p>Your browser does not support the audio element</p>
     </audio>
-    <img id="moto" src="kawasaki.png" alt="">
+    <img id="moto" src="motos/crf.png" alt="">
     <div class="buttons">
         <button id="acelerar">Acelerar</button>
         <button id="frear">Frear</button>
         <button id="empinar">Empinar</button>
         <button id="endireitar">Endireitar</button>
         <button id="cortarGiro">Cortar giro</button>
+        <select name="motos" id="motos">
+
+        </select>
     </div>
 </body>
 </html>
